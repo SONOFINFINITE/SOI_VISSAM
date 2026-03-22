@@ -1,0 +1,632 @@
+@import '../../../../app/styles/_variables.scss';
+@import '../../../../app/styles/_mixins.scss';
+
+.wrapper {
+  display: flex;
+  height: clamp(680px, 85vh, 920px);
+  background: white;
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+
+  @include respond-to(lg) {
+    display: block; // Full screen container
+    height: 100dvh;
+    min-height: 100dvh;
+    background: #fff;
+  }
+}
+
+.watermark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @include respond-to(lg) {
+    display: none; // Completely hide transparent text on mobile and tablet
+  }
+}
+
+.watermarkInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  will-change: transform;
+}
+
+.watermarkGroup {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  &.active .watermarkText {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.watermarkText {
+  position: absolute;
+  color: rgba($color-graphite, 0.035); // Increased opacity for better visibility
+  text-transform: uppercase;
+  white-space: nowrap;
+  font-weight: 900;
+  opacity: 0;
+  transition: opacity 1.2s ease, transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+  letter-spacing: 0.02em; // Increased letter-spacing for premium feel
+
+  &.pos-0 {
+    top: 25%;
+    left: 20%;
+    font-size: clamp(60px, 12vw, 180px);
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+
+  &.pos-1 {
+    top: 60%;
+    left: 80%;
+    font-size: clamp(80px, 16vw, 240px);
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+
+  &.pos-2 {
+    top: 85%;
+    left: 35%;
+    font-size: clamp(40px, 8vw, 120px);
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+
+  @include respond-to(lg) {
+    display: none; // Handled by container hide
+  }
+}
+
+.leftText {
+  position: absolute;
+  bottom: 120px;
+  left: max(40px, 5vw);
+  z-index: 10;
+  pointer-events: none;
+
+  @include respond-to(lg) {
+    top: auto;
+    bottom: 180px; // Provide adequate space for the card link button
+    left: $container-padding-sm;
+    right: $container-padding-sm;
+    margin: 0;
+    padding: 0;
+    z-index: 20;
+
+    .title {
+      color: white;
+      text-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      font-size: clamp(24px, 7vw, 32px); // Slightly more concise
+      margin-bottom: 12px;
+    }
+
+    .subtitle {
+      color: rgba(255, 255, 255, 0.9);
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+      font-size: 14px;
+    }
+  }
+}
+
+.title {
+  font-size: clamp(28px, 2.5vw, 42px);
+  font-weight: 800;
+  line-height: 1.15;
+  color: $color-graphite;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  letter-spacing: 0.01em;
+  display: flex;
+  flex-direction: column;
+}
+
+.titleLine {
+  display: block;
+  will-change: transform, opacity;
+}
+
+.subtitle {
+  font-size: 15px;
+  color: rgba($color-graphite, 0.8);
+  line-height: 1.6;
+  font-weight: 400;
+
+  @include respond-to(lg) {
+    br {
+      display: none;
+    }
+  }
+}
+
+.sliderContainer {
+  flex: 1;
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  height: 100%;
+
+  @include respond-to(lg) {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    min-height: auto;
+  }
+}
+
+.track {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1400px;
+
+  @include respond-to(lg) {
+    perspective: none;
+    top: 0;
+    left: 0;
+    transform: none;
+  }
+}
+
+.card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: clamp(340px, 32vw, 460px);
+  height: clamp(480px, 55vh, 680px);
+  margin-left: calc(clamp(340px, 32vw, 460px) / -2);
+  margin-top: calc(clamp(480px, 55vh, 680px) / -2);
+  transition: transform 1s cubic-bezier(0.25, 1, 0.3, 1), opacity 1s ease, z-index 0s;
+  will-change: transform, opacity, box-shadow;
+
+  // Desktop offsets (3D zig-zag)
+  &[data-offset="0"] {
+    transform: translateX(10%) scale(1) translateY(0);
+    z-index: 10;
+    opacity: 1;
+    cursor: default;
+
+    .cardInner img {
+      transform: scale(1.03);
+    }
+  }
+
+  &[data-offset="-1"] {
+    transform: translateX(-70%) scale(0.65) translateY(-25%);
+    z-index: 8;
+    opacity: 0.95;
+    cursor: pointer;
+
+    &:hover {
+      transform: translateX(-70%) scale(0.68) translateY(-25%);
+    }
+  }
+
+  &[data-offset="1"] {
+    transform: translateX(95%) scale(0.65) translateY(25%);
+    z-index: 7;
+    opacity: 0.95;
+    cursor: pointer;
+
+    &:hover {
+      transform: translateX(95%) scale(0.68) translateY(25%);
+    }
+  }
+
+  &[data-offset="-2"] {
+    transform: translateX(-120%) scale(0.45) translateY(-40%);
+    z-index: 6;
+    opacity: 0.5;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.8;
+      transform: translateX(-120%) scale(0.48) translateY(-40%);
+    }
+  }
+
+  &[data-offset="2"] {
+    transform: translateX(145%) scale(0.45) translateY(-25%);
+    z-index: 5;
+    opacity: 0.5;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.8;
+      transform: translateX(145%) scale(0.48) translateY(-25%);
+    }
+  }
+
+  // Mobile full screen overrides
+  @include respond-to(lg) {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    left: 0;
+    top: 0;
+    border-radius: 0;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s ease;
+
+    &[data-offset="0"] {
+      transform: translateX(0) scale(1) translateY(0);
+      opacity: 1;
+      z-index: 10;
+
+      .cardInner img {
+        transform: scale(1);
+      }
+
+      // standard scale
+    }
+
+    // Animate smoothly out of screen width
+    &[data-offset="-1"],
+    &[data-offset="-2"] {
+      transform: translateX(-100%) scale(1) translateY(0);
+      opacity: 0;
+      z-index: 5;
+    }
+
+    &[data-offset="1"],
+    &[data-offset="2"] {
+      transform: translateX(100%) scale(1) translateY(0);
+      opacity: 0;
+      z-index: 5;
+    }
+  }
+}
+
+.cardInner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  border-radius: 24px;
+  background: white;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.6s ease;
+
+  [data-offset="0"] & {
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.12);
+  }
+
+  [data-offset="-2"] &,
+  [data-offset="2"] & {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.04);
+  }
+
+  // Mobile specific overlay and borders
+  @include respond-to(lg) {
+    border-radius: 0;
+    box-shadow: none !important;
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom,
+          rgba(0, 0, 0, 0.5) 0%,
+          rgba(0, 0, 0, 0.15) 40%,
+          rgba(0, 0, 0, 0.7) 100%);
+      z-index: 1;
+      pointer-events: none;
+    }
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1.2s ease;
+
+    @include respond-to(lg) {
+      z-index: 0;
+    }
+  }
+}
+
+.bagIcon {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $color-graphite;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  pointer-events: none;
+  z-index: 2;
+
+  [data-offset="0"] & {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+
+  [data-offset="-2"] &,
+  [data-offset="2"] & {
+    transform: scale(0.8);
+  }
+
+  [data-offset="-1"]:hover &,
+  [data-offset="1"]:hover &,
+  [data-offset="-2"]:hover &,
+  [data-offset="2"]:hover & {
+    transform: scale(1.1);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  }
+
+  @include respond-to(lg) {
+    bottom: 100px;
+    z-index: 5;
+
+    // Always show bag icon if not active, or hide completely on mobile?
+    // Let's just follow desktop logic or position it accurately.
+  }
+}
+
+.cardLink {
+  position: absolute;
+  bottom: 28px;
+  left: 28px;
+  background: white;
+  padding: 8px 24px 8px 8px;
+  border-radius: 40px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards 0.4s;
+  z-index: 10;
+  pointer-events: auto;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, padding 0.3s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+    padding-right: 32px;
+  }
+
+  span {
+    color: $color-graphite;
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .linkIcon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid rgba($color-graphite, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $color-graphite;
+  }
+
+  @include respond-to(lg) {
+    bottom: 110px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: none;
+
+    span {
+      color: white;
+    }
+
+    .linkIcon {
+      color: white;
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    &:hover {
+      transform: translateY(0); // disable hover move on mobile
+      padding-right: 24px;
+    }
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.bottomControls {
+  position: absolute;
+  bottom: 40px;
+  right: max(40px, 5vw);
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  z-index: 15;
+
+  @include respond-to(lg) {
+    bottom: 30px;
+    right: 0;
+    left: 0;
+    width: 100%;
+    padding: 0 $container-padding-sm;
+    justify-content: space-between;
+    margin: 0;
+
+    // Style adjustments for dark visibility over images
+    .progress {
+      color: white;
+    }
+
+    .progressBar {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .progressFill {
+      background: white;
+    }
+
+    .arrows button {
+      color: white;
+      border-color: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+
+      &:hover {
+        background: white;
+        color: $color-graphite;
+      }
+    }
+  }
+}
+
+.progress {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 14px;
+  font-weight: 700;
+  color: $color-graphite;
+
+  .num {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.progressBar {
+  width: 140px;
+  height: 2px;
+  background: rgba($color-graphite, 0.1);
+  position: relative;
+
+  @include respond-to(sm) {
+    width: 80px;
+  }
+}
+
+.progressFill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: $color-graphite;
+  transition: width 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.arrows {
+  display: none; // Hidden on desktop (using pcArrows)
+  gap: 12px;
+
+  @include respond-to(lg) {
+    display: flex; // Show on mobile within bottomControls
+  }
+
+  button {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid rgba($color-graphite, 0.15);
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $color-graphite;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: $color-graphite;
+      color: white;
+      border-color: $color-graphite;
+    }
+  }
+}
+
+.pcArrows {
+  position: absolute;
+  bottom: 40px;
+  left: max(40px, 5vw);
+  display: flex;
+  gap: 16px;
+  pointer-events: none;
+  z-index: 50;
+
+  @include respond-to(lg) {
+    display: none;
+  }
+
+  button {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: white;
+    border: 1px solid rgba($color-graphite, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $color-graphite;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    pointer-events: auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+
+    &:hover {
+      background: $color-graphite;
+      color: white;
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+}
+
+.pcArrowPrev,
+.pcArrowNext {
+  opacity: 0;
+  transform: translateY(20px);
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  animation: fadeInUp 0.8s ease forwards 1s;
+}

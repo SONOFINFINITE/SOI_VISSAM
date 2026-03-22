@@ -1,0 +1,121 @@
+@import '../../app/styles/variables.scss';
+@import '../../app/styles/mixins.scss';
+
+.page {
+  padding-top: 40px;
+  padding-bottom: 120px;
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+}
+
+.container {
+  @include container;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+
+.title {
+  font-family: $font-family;
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 300;
+  color: $color-graphite-mid;
+  margin-bottom: 32px;
+  line-height: 1.1;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4em;
+}
+
+.titleWord {
+  white-space: nowrap;
+}
+
+.subtitle {
+  font-family: $font-family;
+  font-size: 16px;
+  color: rgba($color-graphite, 0.5);
+  margin-bottom: 48px;
+  max-width: 500px;
+  line-height: 1.6;
+}
+
+.form {
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  text-align: left;
+  padding: 40px;
+  background: #fcfcfc;
+  border: 1px solid rgba($color-brass, 0.1);
+  border-radius: 2px;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.label {
+  font-size: 12px;
+  color: rgba($color-graphite, 0.6);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  
+  span {
+    color: #cc4949;
+  }
+}
+
+.input {
+  border: 1px solid rgba($color-graphite, 0.1);
+  background: #fff;
+  padding: 16px;
+  color: $color-graphite;
+  font-family: $font-family;
+  font-size: 15px;
+  transition: all $transition-fast;
+  width: 100%;
+
+  &:focus {
+    outline: none;
+    border-color: $color-brass;
+    box-shadow: 0 4px 20px rgba($color-brass, 0.05);
+  }
+
+  &::placeholder {
+    color: rgba($color-graphite, 0.2);
+  }
+}
+
+.infoText {
+  font-size: 13px;
+  color: rgba($color-graphite, 0.4);
+  line-height: 1.6;
+  margin-top: 8px;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.submitBtn {
+  @include btn-brass;
+  padding: 18px 60px;
+  width: 100%;
+  font-size: 13px;
+}

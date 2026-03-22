@@ -1,0 +1,459 @@
+.footer {
+  background: #e6e4e3;
+  border-top: 1px solid rgba($color-graphite, 0.1);
+}
+
+.main {
+  @include container;
+  display: grid;
+  grid-template-columns: 1.2fr 1.3fr 1.5fr 1fr 1.5fr;
+  gap: 32px;
+  padding-top: 40px;
+  padding-bottom: 40px;
+
+  @include respond-to(lg) {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 48px 32px;
+  }
+
+  @include respond-to(md) {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+
+  @include respond-to(sm) {
+    display: flex;
+    flex-direction: column;
+    padding-top: 0;
+    padding-bottom: 40px;
+    gap: 0;
+
+    .col {
+      width: 100%;
+    }
+
+    // Create a horizontal row for specific sections if needed
+    // But since the user wants them "in a row", I'll use a grid or flex for them
+  }
+}
+
+.accordionRow {
+  display: contents;
+
+  @include respond-to(sm) {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba($color-graphite, 0.06);
+
+    .col {
+      width: auto !important;
+
+      &__title {
+        border-bottom: none !important;
+        padding: 0 !important;
+        font-size: 14px !important; // Increased for better readability
+        gap: 6px;
+        width: auto !important;
+        display: inline-flex !important;
+        align-items: center;
+        margin: 0 !important;
+      }
+
+      &__header_with_link {
+        border-bottom: none !important;
+        margin-bottom: 0 !important;
+        padding: 0 !important;
+      }
+
+      &__chevron {
+        display: none !important; // Hide chevron to save space
+      }
+
+      &__links {
+        display: none !important; // Accordions in a row might be too complex, better hide or position absolutely? 
+        // Actually, if they are in a row, expanding them will break the row.
+        // Let's assume the user wants them as links or just simplified.
+      }
+    }
+  }
+}
+
+.col_main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  @include respond-to(lg) {
+    gap: 48px;
+  }
+}
+
+.main_links {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+
+  @include respond-to(sm) {
+    flex-direction: row;
+    justify-content: center;
+    gap: 24px;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba($color-graphite, 0.06);
+  }
+}
+
+.main_link {
+  color: $color-graphite;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: opacity $transition-fast;
+
+  &:hover {
+    opacity: 0.7;
+  }
+
+  @include respond-to(sm) {
+    padding: 0;
+    font-size: 14px; // Increased for better readability
+    border-bottom: none;
+  }
+}
+
+.copyright {
+  color: rgba($color-graphite, 0.45);
+  font-size: 14px;
+  margin-top: 140px;
+
+  @include respond-to(lg) {
+    margin-top: 40px;
+  }
+
+  @include respond-to(sm) {
+    margin-top: 0;
+    text-align: center;
+    width: 100%;
+    font-size: 12px;
+  }
+}
+
+.col {
+  &__header_with_link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 32px;
+
+    .col__title {
+      margin-bottom: 0;
+    }
+
+    @include respond-to(sm) {
+      margin-bottom: 0;
+      border-bottom: 1px solid rgba($color-graphite, 0.06);
+
+      &[aria-expanded="true"] {
+        border-bottom-color: transparent;
+      }
+    }
+  }
+
+  &__mobile_toggle {
+    display: none;
+    background: none;
+    border: none;
+    padding: 24px 0;
+    cursor: pointer;
+
+    @include respond-to(sm) {
+      display: block;
+    }
+  }
+
+  &__title {
+    color: $color-graphite;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: opacity $transition-fast;
+
+    &:hover {
+      opacity: 0.7;
+    }
+
+    @include respond-to(sm) {
+      padding: 24px 0;
+      margin-bottom: 0;
+      font-size: 12px;
+      border-bottom: 1px solid rgba($color-graphite, 0.06);
+
+      &[aria-expanded="true"] {
+        border-bottom-color: transparent;
+
+        .col__chevron {
+          transform: rotate(180deg);
+        }
+      }
+    }
+  }
+
+  &__chevron {
+    display: none;
+    color: rgba($color-graphite, 0.5);
+    transition: transform $transition-fast;
+
+    @include respond-to(sm) {
+      display: block;
+    }
+  }
+
+  &__links {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    @include respond-to(sm) {
+      display: none;
+      padding-bottom: 24px;
+      padding-top: 8px;
+      border-bottom: 1px solid rgba($color-graphite, 0.06);
+
+      &--open {
+        display: flex;
+      }
+    }
+  }
+
+  &__link {
+    color: rgba($color-graphite, 0.85);
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.4;
+    transition: opacity $transition-fast;
+
+    &:hover {
+      opacity: 0.7;
+    }
+
+    @include respond-to(sm) {
+      padding: 6px 0;
+    }
+
+    &_all {
+      font-weight: 700;
+      color: $color-graphite;
+      margin-top: 4px;
+    }
+  }
+}
+
+.contacts_col {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  position: relative;
+
+  @include respond-to(lg) {
+    grid-column: 1 / -1;
+    align-items: center;
+    text-align: center;
+    margin-top: 40px;
+    padding-bottom: 24px;
+    border-top: 1px solid rgba($color-graphite, 0.06);
+    padding-top: 40px;
+  }
+
+  @include respond-to(sm) {
+    grid-column: auto;
+    margin-top: 0;
+    padding: 32px 0 0;
+    gap: 20px;
+    border-top: none;
+  }
+}
+
+.contact_item_mobile_row {
+  @include respond-to(lg) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+.contact_item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: rgba($color-graphite, 0.9);
+  font-size: 15px;
+  line-height: 1.5;
+
+  @include respond-to(lg) {
+    justify-content: center;
+  }
+
+  @include respond-to(sm) {
+    flex-direction: row; // Icon next to text
+    justify-content: center;
+    text-align: left;
+    gap: 12px;
+    font-size: 14.5px; // Increased for better readability
+
+    .contact_icon {
+      margin-top: 3px; // Center aligning with slightly larger text
+    }
+  }
+}
+
+.contact_icon {
+  color: rgba($color-graphite, 0.75);
+  flex-shrink: 0;
+  margin-top: 2px;
+
+  @include respond-to(lg) {
+    margin-top: 0;
+  }
+}
+
+.contact_text_wrapper {
+  display: flex;
+  flex-direction: column; // Force column to avoid wrapping issues
+  align-items: flex-start;
+  gap: 4px;
+
+  @include respond-to(lg) {
+    align-items: center;
+    gap: 6px;
+  }
+
+  @include respond-to(sm) {
+    align-items: center;
+    gap: 6px;
+  }
+}
+
+.contact_dot {
+  display: none !important; // Hide dot as we're switching to column
+}
+
+.contact_callback {
+  text-align: left;
+  color: rgba($color-graphite, 0.55);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: color $transition-fast;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    color: $color-brass;
+  }
+
+  @include respond-to(lg) {
+    font-size: 9px;
+  }
+}
+
+.contact_link {
+  color: rgba($color-graphite, 0.9);
+  transition: opacity $transition-fast;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+.contact_text {
+  color: rgba($color-graphite, 0.9);
+
+  @include respond-to(lg) {
+    br {
+      display: none;
+    }
+  }
+}
+
+.telegram_btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background-color: #36aee2;
+  color: #fff;
+  border-radius: 4px;
+  margin-top: 8px;
+  transition: background-color $transition-fast;
+
+  &:hover {
+    background-color: #2c97c8;
+  }
+
+  @include respond-to(lg) {
+    margin-top: 16px;
+    position: relative;
+    left: auto;
+    transform: none;
+  }
+
+  @include respond-to(sm) {
+    align-self: center;
+    margin-top: 12px;
+    width: 48px;
+    height: 48px;
+  }
+}
+
+.footer_bottom {
+  display: none; // Hidden on desktop/tablet
+
+  @include respond-to(sm) {
+    display: block;
+    padding: 24px 0 40px;
+    border-top: none;
+  }
+}
+
+.footer_bottom__inner {
+  @include container;
+  display: flex;
+  justify-content: center;
+}
+
+.mobile-only {
+  display: none !important;
+
+  @include respond-to(sm) {
+    display: block !important;
+  }
+}
+
+.desktop-only {
+  display: block !important;
+
+  @include respond-to(sm) {
+    display: none !important;
+  }
+}

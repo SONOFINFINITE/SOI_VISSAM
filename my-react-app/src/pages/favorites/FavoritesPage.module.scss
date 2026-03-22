@@ -1,0 +1,359 @@
+@import '../../app/styles/variables';
+@import '../../app/styles/mixins';
+
+.favorites {
+  padding-top: 0;
+  padding-bottom: 80px;
+  background: #fff;
+  min-height: 100vh;
+}
+
+.favorites__inner {
+  @include container;
+}
+
+.heroHeader {
+  min-height: 25vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem 0;
+
+  @media (max-width: $bp-sm) {
+    min-height: 15vh;
+  }
+
+  .magTitle {
+    position: relative;
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: $color-graphite;
+    line-height: 1.2;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0 0.4em;
+
+    @media (max-width: $bp-sm) {
+      font-size: 1.75rem;
+      letter-spacing: 0.05em;
+    }
+  }
+}
+
+.titleWord {
+  display: flex;
+  white-space: nowrap;
+}
+
+.favorites__countBadge {
+  background: rgba($color-graphite, 0.04);
+  color: rgba($color-graphite, 0.35);
+  font-size: 0.45em;
+  font-weight: 400;
+  padding: 0 12px;
+  height: 2.2em;
+  border-radius: 40px;
+  border: 1px solid rgba($color-graphite, 0.08);
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0.4em;
+  font-family: $font-family;
+
+  @include respond-to(lg) {
+    font-size: 16px;
+    padding: 0 10px;
+    height: 30px;
+  }
+}
+
+.favorites__header {
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba($color-graphite, 0.05);
+  padding-bottom: 24px;
+
+  @include respond-to(sm) {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.favorites__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: rgba($color-graphite, 0.6);
+  text-decoration: none;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: $color-graphite;
+  }
+}
+
+.favorites__clearBtn {
+  background: none;
+  border: none;
+  font-family: $font-family;
+  font-size: 13px;
+  color: rgba($color-graphite, 0.4);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: #e74c3c;
+  }
+}
+
+// ─── Empty State ──────────────────────────────────────────────────────────────
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.empty__icon {
+  color: rgba($color-graphite, 0.1);
+  margin-bottom: 32px;
+}
+
+.empty__title {
+  font-size: 28px;
+  font-weight: 500;
+  color: $color-graphite;
+  margin-bottom: 12px;
+}
+
+.empty__text {
+  font-size: 15px;
+  color: rgba($color-graphite, 0.5);
+  margin-bottom: 40px;
+  max-width: 360px;
+  line-height: 1.6;
+}
+
+.empty__btn {
+  display: inline-flex;
+  align-items: center;
+  background: $color-graphite;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 10px;
+  padding: 14px 32px;
+  font-family: $font-family;
+  font-size: 15px;
+  font-weight: 500;
+  transition: all $transition-fast;
+
+  &:hover {
+    background: $color-brass;
+    box-shadow: 0 6px 20px rgba($color-brass, 0.25);
+  }
+}
+
+// ─── Products Grid ────────────────────────────────────────────────────────────
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px 24px;
+
+  @include respond-to(xl) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px 16px;
+  }
+
+  @include respond-to(md) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px 16px;
+  }
+
+  @include respond-to(sm) {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+// ─── Product Card ─────────────────────────────────────────────────────────────
+
+.productCard {
+  display: flex;
+  flex-direction: column;
+  transition: transform $transition-fast;
+
+  &:hover {
+    .productCard__imageWrap img {
+      transform: scale(1.05);
+    }
+  }
+
+  &__imageWrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: #fdfdfd;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 16px;
+    border: 1px solid rgba($color-graphite, 0.04);
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transition: transform $transition-slow;
+      padding: 16px;
+    }
+  }
+
+  &__badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: #cbfabb;
+    color: #276916;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+    z-index: 2;
+  }
+
+  &__removeBtn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba($color-graphite, 0.4);
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    z-index: 2;
+    transition: all $transition-fast;
+
+    &:hover {
+      color: #e74c3c;
+      background: rgba(#e74c3c, 0.06);
+      transform: scale(1.1);
+    }
+  }
+
+  &__info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 0 4px;
+  }
+
+  &__category {
+    font-size: 11px;
+    color: rgba($color-graphite, 0.5);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  &__name {
+    font-size: 15px;
+    font-weight: 500;
+    color: $color-graphite;
+    margin-bottom: 10px;
+    line-height: 1.4;
+    height: 2.8em;
+    display: -webkit-box;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+
+    @include respond-to(sm) {
+      font-size: 16px;
+      height: auto;
+      max-height: 2.8em;
+    }
+  }
+
+  &__priceRow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: auto;
+  }
+
+  &__price {
+    font-size: 20px;
+    font-weight: 600;
+    color: $color-graphite;
+
+    @include respond-to(sm) {
+      font-size: 18px;
+    }
+  }
+
+  &__oldPrice {
+    font-size: 14px;
+    color: rgba($color-graphite, 0.4);
+    text-decoration: line-through;
+  }
+
+  &__cartBtn {
+    margin-top: 16px;
+    background: $color-graphite;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+    font-family: $font-family;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all $transition-fast;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    &:hover {
+      background: $color-brass;
+      box-shadow: 0 4px 12px rgba($color-brass, 0.2);
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+
+    &--added {
+      background: $color-brass;
+      box-shadow: 0 4px 12px rgba($color-brass, 0.15);
+
+      &:hover {
+        background: darken(#c4952a, 8%);
+      }
+    }
+  }
+}

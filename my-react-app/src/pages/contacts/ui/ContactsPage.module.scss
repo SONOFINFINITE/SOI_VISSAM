@@ -1,0 +1,260 @@
+@import '../../app/styles/mixins';
+@import '../../app/styles/variables';
+
+.contactsPage {
+  background-color: $color-white;
+  color: $color-graphite;
+  padding-top: 0px;
+  overflow: hidden;
+
+  @media (max-width: $bp-lg) {
+    overflow: auto;
+  }
+}
+
+.fullHeightLayout {
+  display: flex;
+  min-height: calc(100vh - #{$header-total-height});
+  width: 100%;
+
+  @media (max-width: $bp-lg) {
+    flex-direction: column;
+    min-height: auto;
+  }
+}
+
+.infoSide {
+  flex: 0 0 50%;
+  padding: 40px $container-padding;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  @media (max-width: $bp-xl) {
+    padding: 60px 40px;
+  }
+
+  @media (max-width: $bp-lg) {
+    flex: none;
+    padding: 40px $container-padding-sm;
+  }
+}
+
+.infoSideHeader {
+  margin-bottom: 60px;
+
+  @media (max-width: $bp-lg) {
+    margin-bottom: 0;
+  }
+}
+
+.heroHeader {
+  text-align: left;
+
+  @media (max-width: $bp-lg) {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+}
+
+.magTitle {
+  font-family: $font-family;
+  font-weight: 300;
+  font-size: clamp(36px, 5vw, 72px);
+  line-height: 1.1;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: $color-graphite-mid;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3em;
+
+  @media (max-width: $bp-lg) {
+    justify-content: center;
+  }
+}
+
+.titleWord {
+  display: inline-flex;
+  overflow: hidden;
+}
+
+.contactGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px 48px;
+
+  @media (max-width: $bp-md) {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+.contactBlock {
+  h3 {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: $color-graphite;
+    margin-bottom: 20px;
+    font-weight: 600;
+    opacity: 0.45;
+  }
+
+  p {
+    font-size: 20px;
+    line-height: 1.5;
+    margin: 0 0 12px;
+    color: $color-graphite-mid;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.contactLink {
+  font-size: 20px;
+  line-height: 1.5;
+  color: $color-graphite-mid;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: all $transition-base;
+  display: inline-block;
+
+  &:hover {
+    color: $color-brass;
+    border-bottom-color: $color-brass;
+  }
+}
+
+.mapLinks {
+  margin-top: 24px;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 8px 8px 24px;
+  border-radius: 100px;
+  background: white;
+  border: 1px solid rgba($color-graphite, 0.15);
+  color: $color-graphite;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  margin-top: 12px;
+
+  .linkIcon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: $color-graphite;
+    color: #fff;
+    @include flex-center;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background 0.4s;
+  }
+
+  span {
+    transition: transform 0.3s;
+  }
+
+  &:hover {
+    border-color: $color-graphite;
+    background-color: $color-white;
+
+    .linkIcon {
+      background: $color-brass;
+      color: $color-graphite-mid;
+      transform: rotate(45deg);
+    }
+  }
+
+  @media (max-width: $bp-sm) {
+    padding: 6px 6px 6px 16px;
+    font-size: 10px;
+    gap: 8px;
+
+    .linkIcon {
+      width: 26px;
+      height: 26px;
+      
+      svg {
+        width: 12px;
+        height: 12px;
+      }
+    }
+  }
+}
+
+.mapSide {
+  flex: 0 0 50%;
+  background: #fdfdfd;
+  border-left: 1px solid $color-border;
+  position: relative;
+  overflow: hidden;
+
+  @media (max-width: $bp-lg) {
+    flex: none;
+    height: 500px;
+    border-left: none;
+    border-top: 1px solid $color-border;
+  }
+}
+
+.mapFrameWrapper {
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  
+  &.isLoaded {
+    opacity: 1;
+  }
+
+  iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+}
+
+.mapSkeleton {
+  position: absolute;
+  inset: 0;
+  background: #f0f0f0;
+  overflow: hidden;
+  z-index: 2;
+  transition: opacity 0.8s ease-out 0.4s;
+  pointer-events: none;
+
+  &.fadeOut {
+    opacity: 0;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0,
+      rgba(255, 255, 255, 0.3) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    animation: skeletonShimmer 2s infinite;
+  }
+}
+
+@keyframes skeletonShimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}

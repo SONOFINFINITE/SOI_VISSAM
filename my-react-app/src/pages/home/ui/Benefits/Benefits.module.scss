@@ -1,0 +1,53 @@
+@import '../../../../app/styles/_variables.scss';
+@import '../../../../app/styles/_mixins.scss';
+
+.info-bar {
+  background: #fff;
+  border-bottom: 1px solid rgba($color-graphite, 0.1);
+
+  &__inner {
+    @include container;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    padding-top: 36px;
+    padding-bottom: 36px;
+
+    @include respond-to(lg) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px 0;
+    }
+
+    @include respond-to(sm) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+    padding: 0 20px;
+  }
+
+  &__icon {
+    color: $color-brass;
+    margin-bottom: 6px;
+  }
+
+  &__title {
+    color: $color-graphite;
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  &__desc {
+    color: rgba($color-graphite, 0.85);
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.5;
+    max-width: 260px;
+  }
+}

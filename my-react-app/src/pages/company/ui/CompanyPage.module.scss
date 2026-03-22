@@ -1,0 +1,135 @@
+@import '../../../app/styles/mixins';
+@import '../../../app/styles/variables';
+
+.companyPage {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  min-height: 100vh;
+  background-color: $color-white;
+  color: $color-graphite;
+}
+
+.container {
+  max-width: $container-max-width;
+  margin: 0 auto;
+  padding: 0 $container-padding;
+
+  @media (max-width: $bp-lg) {
+    padding: 0 $container-padding-sm;
+  }
+}
+
+.heroHeader {
+  margin-bottom: $section-spacing-sm;
+  overflow: hidden;
+  text-align: center;
+}
+
+.magTitle {
+  font-family: $font-family;
+  font-weight: 300;
+  font-size: clamp(40px, 6vw, 82px);
+  line-height: 1.1;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: $color-graphite-mid;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.3em;
+}
+
+.titleWord {
+  display: inline-flex;
+  overflow: hidden;
+}
+
+.mainContent {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.content {
+  overflow: hidden;
+
+  h2 {
+    font-size: 32px;
+    font-weight: 400;
+    margin-bottom: 24px;
+    letter-spacing: 0.02em;
+    color: $color-graphite-mid;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  h3 {
+    font-size: 24px;
+    font-weight: 400;
+    margin-top: 40px;
+    margin-bottom: 16px;
+    color: $color-graphite-mid;
+  }
+
+  p {
+    font-size: 16px;
+    line-height: 1.8;
+    margin-bottom: 24px;
+    color: $color-graphite;
+    text-align: justify;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+  }
+
+  h2,
+  h3 {
+    text-align: center;
+  }
+
+  ul.benefitsList {
+    list-style: none;
+    padding: 0;
+    margin: 30px 0 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+
+    li {
+      position: relative;
+      padding-left: 20px;
+      font-size: 16px;
+      line-height: 1.5;
+      color: $color-graphite;
+      text-align: left; // Reset for list items
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 8px;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background-color: $color-brass;
+      }
+    }
+  }
+
+  @media (max-width: $bp-md) {
+    h2 {
+      font-size: 28px;
+      margin-top: 40px;
+    }
+
+    h3 {
+      font-size: 22px;
+      margin-top: 30px;
+    }
+
+    ul.benefitsList {
+      grid-template-columns: 1fr;
+    }
+  }
+}

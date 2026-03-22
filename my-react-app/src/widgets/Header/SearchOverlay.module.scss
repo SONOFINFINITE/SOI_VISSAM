@@ -1,0 +1,234 @@
+@import '../../app/styles/variables.scss';
+@import '../../app/styles/mixins.scss';
+
+.searchOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  z-index: $z-modal + 10; // Above header and modal
+  pointer-events: none; // Unclickable when hidden
+  display: flex;
+  flex-direction: column;
+
+  &.isOpen {
+    pointer-events: auto;
+  }
+
+  &__inner {
+    background: #fff;
+    width: 100%;
+    max-height: 80vh;
+    padding: 30px 0;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+    overflow-y: auto;
+  }
+
+  &__header {
+    @include container;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+
+  &__inputWrapper {
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  &__icon {
+    position: absolute;
+    left: 0;
+    color: rgba($color-graphite, 0.4);
+  }
+
+  &__input {
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid rgba($color-graphite, 0.1);
+    padding: 15px 40px;
+    font-size: 24px;
+    font-weight: 400;
+    color: $color-graphite;
+    transition: border-color 0.3s;
+    background: transparent;
+
+    &:focus {
+      outline: none;
+      border-bottom-color: $color-brass;
+    }
+
+    &::placeholder {
+      color: rgba($color-graphite, 0.3);
+      font-weight: 300;
+    }
+
+    @include respond-to(md) {
+      font-size: 18px;
+      padding: 10px 10px 10px 30px;
+    }
+  }
+
+  &__close {
+    background: none;
+    border: none;
+    color: rgba($color-graphite, 0.5);
+    cursor: pointer;
+    padding: 10px;
+    transition: color 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      color: $color-brass;
+    }
+  }
+
+  &__results {
+    @include container;
+    flex: 1;
+    overflow-y: auto;
+    padding-bottom: 20px;
+  }
+
+  &__empty {
+    padding: 40px 0;
+    text-align: center;
+    color: rgba($color-graphite, 0.5);
+    font-size: 16px;
+  }
+
+  &__section {
+    margin-bottom: 30px;
+  }
+
+  &__sectionTitle {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba($color-graphite, 0.5);
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba($color-graphite, 0.1);
+  }
+
+  &__collectionsList {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+
+    @include respond-to(md) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__collectionItem {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px;
+    border-radius: 8px;
+    transition: background 0.3s;
+    text-decoration: none;
+
+    &:hover {
+      background: rgba($color-graphite, 0.03);
+    }
+
+    img {
+      width: 60px;
+      height: 40px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+
+    span {
+      font-weight: 500;
+      color: $color-graphite;
+    }
+  }
+
+  &__productsList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &__productItem {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 10px;
+    transition: background 0.3s;
+    border-radius: 8px;
+    text-decoration: none;
+
+    &:hover {
+      background: rgba($color-graphite, 0.03);
+    }
+  }
+
+  &__productImage {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 4px;
+    background: #f9f9f9;
+  }
+
+  &__productInfo {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 3fr 1fr 2fr;
+    align-items: center;
+    gap: 20px;
+
+    @include respond-to(md) {
+      grid-template-columns: 1fr;
+      gap: 5px;
+    }
+  }
+
+  &__productName {
+    font-weight: 600;
+    color: $color-graphite;
+    font-size: 15px;
+  }
+
+  &__productSku {
+    color: rgba($color-graphite, 0.5);
+    font-size: 13px;
+  }
+
+  &__productPrice {
+    font-weight: 700;
+    color: $color-graphite;
+    text-align: right;
+
+    @include respond-to(md) {
+      text-align: left;
+    }
+  }
+
+  &__oldPrice {
+    color: rgba($color-graphite, 0.4);
+    text-decoration: line-through;
+    margin-left: 10px;
+    font-weight: 400;
+    font-size: 13px;
+  }
+
+  &__backdrop {
+    flex: 1;
+    background: rgba(0, 0, 0, 0.4);
+  }
+}

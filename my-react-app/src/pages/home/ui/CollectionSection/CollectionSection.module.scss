@@ -1,0 +1,470 @@
+@import '../../../../app/styles/variables.scss';
+@import '../../../../app/styles/mixins.scss';
+
+.section {
+  padding: 20px 0;
+  border-bottom: 1px solid rgba($color-graphite, 0.05);
+  background: #fff;
+
+  @include respond-to(md) {
+    padding: 40px 0;
+  }
+}
+
+.inner {
+  padding-top: 20px;
+  @include container;
+}
+
+.header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  gap: 32px;
+  flex-wrap: wrap;
+
+  @include respond-to(sm) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+}
+
+.headerContent {
+  flex: 1;
+  max-width: 680px;
+}
+
+.title {
+  font-size: clamp(32px, 4vw, 42px);
+  font-weight: 300;
+  color: $color-graphite;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.desc {
+  font-size: clamp(14px, 1.5vw, 15px);
+  line-height: 1.6;
+  color: rgba($color-graphite, 0.65);
+  font-weight: 400;
+}
+
+// Modern pill-shaped link with icon circle
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 8px 8px 24px;
+  border-radius: 100px;
+  background: white;
+  border: 1px solid rgba($color-graphite, 0.15);
+  color: $color-graphite;
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  flex-shrink: 0;
+
+  .linkIcon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: $color-graphite;
+    color: #fff;
+    @include flex-center;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background 0.4s;
+  }
+
+  span {
+    transition: transform 0.3s;
+  }
+
+  &:hover {
+    border-color: $color-graphite;
+
+    .linkIcon {
+      background: $color-brass;
+      transform: rotate(45deg);
+    }
+  }
+
+  @include respond-to(sm) {
+    align-self: flex-end;
+    padding: 6px 6px 6px 16px;
+    font-size: 11px;
+    gap: 8px;
+
+    .linkIcon {
+      width: 28px;
+      height: 28px;
+
+      svg {
+        width: 14px;
+        height: 14px;
+      }
+    }
+  }
+}
+
+// Bento Grid 6 collections Layout
+.bento {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 280px;
+  grid-auto-flow: dense;
+
+  @include respond-to(md) {
+    gap: 12px;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 240px;
+  }
+
+  @include respond-to(sm) {
+    gap: 8px;
+    grid-template-columns: 1fr;
+    grid-auto-rows: 280px;
+  }
+}
+
+.card {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: 20px;
+  background: $color-graphite-mid;
+  isolation: isolate;
+  text-align: left;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  outline: none;
+
+  &:hover {
+    .cardImg {
+      transform: scale(1.04);
+    }
+  }
+
+  // Bento layout mapping for 6 elements (4x3 blocks total)
+  &:nth-child(1) {
+    grid-column: span 2;
+    grid-row: span 2; // Hero big
+
+    @include respond-to(sm) {
+      grid-column: span 1;
+      grid-row: span 1;
+    }
+  }
+
+  &:nth-child(2) {
+    grid-column: span 2;
+    grid-row: span 1; // Wide top right
+
+    @include respond-to(sm) {
+      grid-column: span 1;
+    }
+  }
+
+  &:nth-child(3) {
+    grid-column: span 1;
+    grid-row: span 1; // Small middle
+  }
+
+  &:nth-child(4) {
+    grid-column: span 1;
+    grid-row: span 1; // Small middle end
+  }
+
+  &:nth-child(5) {
+    grid-column: span 1;
+    grid-row: span 1; // Small bottom start
+
+    @include respond-to(md) {
+      grid-column: span 2; // Full width on tablet
+    }
+
+    @include respond-to(sm) {
+      grid-column: span 1;
+    }
+  }
+
+  &:nth-child(6) {
+    grid-column: span 3;
+    grid-row: span 1; // Wide bottom end
+
+    @include respond-to(md) {
+      grid-column: span 2; // Full width on tablet
+    }
+
+    @include respond-to(sm) {
+      grid-column: span 1;
+    }
+  }
+}
+
+.cardImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: center;
+}
+
+// Full descriptive glass overlay effect
+.cardOverlay {
+  position: absolute;
+  inset: 0;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 60%);
+  transition: background 0.5s ease;
+
+  @include respond-to(sm) {
+    padding: 24px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 60%);
+  }
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(16px);
+
+  @include respond-to(sm) {
+    transform: translateY(0);
+  }
+}
+
+.cardTitle {
+  color: #fff;
+  font-size: clamp(24px, 2.5vw, 32px);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.iconWrapper {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  @include flex-center;
+  color: #fff;
+  opacity: 0;
+  transform: scale(0.8) rotate(-45deg);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  flex-shrink: 0;
+
+  @include respond-to(sm) {
+    opacity: 1;
+    transform: scale(0.8) rotate(0);
+  }
+}
+
+.cardBody {
+  overflow: hidden;
+}
+
+.cardDesc {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: clamp(14px, 1.2vw, 15px);
+  line-height: 1.5;
+  margin-top: 16px;
+  // Natural display so 2 full sentences show without ...
+
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  max-height: 0;
+  visibility: hidden;
+
+  @include respond-to(sm) {
+    display: none;
+  }
+}
+
+.card:hover {
+  .cardOverlay {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.3) 60%, rgba(0, 0, 0, 0) 100%);
+  }
+
+  .cardHeader {
+    transform: translateY(0);
+  }
+
+  .iconWrapper {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+    background: $color-brass;
+    color: $color-graphite;
+    border-color: $color-brass;
+  }
+
+  .cardDesc {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    max-height: 180px; // high enough to allow the full non-truncated sentences
+  }
+}
+
+// Collection Modal
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(10, 10, 10, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  @include flex-center;
+  padding: 24px;
+  animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+  @include respond-to(sm) {
+    padding: 16px;
+  }
+}
+
+.modalContent {
+  position: relative;
+  width: 100%;
+  max-width: 1080px;
+  aspect-ratio: 16 / 9;
+  border-radius: 24px;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  animation: scaleUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+
+  @include respond-to(md) {
+    aspect-ratio: 4 / 3;
+  }
+
+  @include respond-to(sm) {
+    aspect-ratio: auto;
+    height: 85vh;
+  }
+}
+
+.modalClose {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  @include flex-center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: $color-brass;
+    color: $color-graphite;
+    border-color: $color-brass;
+    transform: rotate(90deg) scale(1.05);
+  }
+}
+
+.modalGlass {
+  padding: 56px 48px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.45) 75%, rgba(0, 0, 0, 0) 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  @include respond-to(sm) {
+    padding: 32px 24px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.6) 75%, rgba(0, 0, 0, 0) 100%);
+  }
+}
+
+.modalTitle {
+  font-size: clamp(32px, 4vw, 56px);
+  font-weight: 300;
+  color: #fff;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.modalDesc {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: clamp(15px, 1.4vw, 18px);
+  line-height: 1.6;
+  font-weight: 300;
+  max-width: 720px;
+  margin: 0;
+}
+
+.modalLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 100px;
+  background: #fff;
+  color: $color-graphite;
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all $transition-base;
+  align-self: flex-start;
+  margin-top: 8px;
+
+  &:hover {
+    background: $color-brass;
+    color: $color-graphite;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba($color-brass, 0.2);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleUp {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}

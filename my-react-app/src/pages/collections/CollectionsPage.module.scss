@@ -1,0 +1,300 @@
+@import '../../app/styles/mixins';
+@import '../../app/styles/variables';
+
+.page {
+  background-color: $color-cream;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  // Custom footer for this page
+  footer {
+    background-color: #ffffff !important;
+  }
+}
+
+.main {
+  flex: 1;
+  padding-top: 20px;
+  overflow: hidden;
+}
+
+// Hero Section
+.hero {
+  min-height: 35vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4rem 2rem 2rem;
+
+  @media (max-width: $bp-sm) {
+    min-height: 20vh;
+    padding: 0rem 1rem 1rem;
+  }
+
+  &__title {
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: $color-graphite-mid;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    line-height: 1.2;
+  }
+
+  &__subtitle {
+    font-size: clamp(1rem, 1.2vw, 1.25rem);
+    color: $color-graphite-light;
+    font-weight: 300;
+    max-width: 600px;
+    opacity: 0;
+    line-height: 1.6;
+    letter-spacing: 0.05em;
+    animation: fadeIn 1.2s ease 0.5s forwards;
+  }
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 0.8;
+  }
+}
+
+// Collections List
+.list {
+  padding-bottom: $section-spacing;
+  display: flex;
+  flex-direction: column;
+  gap: 12rem;
+
+  @media (max-width: $bp-lg) {
+    gap: 2rem;
+    padding-bottom: $section-spacing-sm;
+  }
+}
+
+// Overlapping Editorial Layout
+.item {
+  position: relative;
+  width: 100%;
+  max-width: $container-max-width;
+  margin: 0 auto;
+  padding: 0 $container-padding;
+  display: flex;
+  align-items: center;
+  min-height: 700px;
+  height: 85vh; // Full viewport height feeling
+
+  @media (max-width: $bp-lg) {
+    flex-direction: column;
+    padding: 0 $container-padding-sm;
+    height: auto;
+    min-height: auto;
+  }
+
+  &--even {
+    justify-content: flex-start;
+  }
+
+  // The large background image
+  &__visual {
+    position: absolute;
+    top: 50%;
+    left: $container-padding;
+    transform: translateY(-50%);
+    width: 62%; // Takes up majority 
+    height: 100%;
+    overflow: hidden;
+    z-index: 1;
+
+    @media (max-width: $bp-lg) {
+      position: relative;
+      width: 100%;
+      height: 60vh;
+      top: 0;
+      left: 0;
+      transform: none;
+    }
+  }
+
+  &--even &__visual {
+    left: auto;
+    right: $container-padding;
+
+    @media (max-width: $bp-lg) {
+      right: 0;
+    }
+  }
+
+  &__imgWrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  &__img {
+    width: 100%;
+    height: 130%; // Tall for GSAP Parallax
+    object-fit: cover;
+    object-position: center;
+    position: absolute;
+    top: -15%;
+    left: 0;
+    transform-origin: center;
+    will-change: transform;
+  }
+
+  // Floating White Card
+  &__content {
+    position: relative;
+    z-index: 2;
+    background: $color-white;
+    padding: 5rem 4rem;
+    width: 42%; // Distinct overlap 
+    margin-left: auto; // Push to right side
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.08);
+
+    @media (max-width: $bp-lg) {
+      width: 90%;
+      margin: -20% auto 0;
+      padding: 3rem 2rem;
+    }
+
+    @media (max-width: $bp-sm) {
+      width: 95%;
+      margin: -15% auto 0;
+      padding: 2.5rem 1.5rem;
+    }
+  }
+
+  &--even &__content {
+    margin-left: 0;
+    margin-right: auto; // Push to left side
+
+    @media (max-width: $bp-lg) {
+      margin: -20% auto 0;
+    }
+
+    @media (max-width: $bp-sm) {
+      margin: -15% auto 0;
+    }
+  }
+
+  // Elegant subtle number
+  &__bgNumber {
+    position: absolute;
+    top: -3rem;
+    right: -2rem;
+    font-size: clamp(6rem, 12vw, 15rem);
+    font-weight: 300;
+    color: rgba($color-graphite, 0.05);
+    line-height: 1;
+    pointer-events: none;
+    z-index: -1;
+    letter-spacing: -0.05em;
+    will-change: transform;
+
+    @media (max-width: $bp-lg) {
+      top: -4rem;
+      right: 0;
+    }
+  }
+
+  &--even &__bgNumber {
+    right: auto;
+    left: -2rem;
+
+    @media (max-width: $bp-lg) {
+      left: 0;
+    }
+  }
+
+  &__textWrapper {
+    width: 100%;
+  }
+
+  &__title {
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    font-weight: 300;
+    color: $color-graphite-mid;
+    margin-bottom: 2rem;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+  }
+
+  &__hr {
+    border: none;
+    height: 1px;
+    width: 80px;
+    background-color: $color-brass;
+    margin-bottom: 2.5rem;
+  }
+
+  &__desc {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: $color-graphite;
+    margin-bottom: 3.5rem;
+    font-weight: 300;
+
+    p {
+      margin-bottom: 1.5rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  // Pill button matching CollectionSection
+  &__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 8px 8px 24px;
+    border-radius: 100px;
+    background: white;
+    border: 1px solid rgba($color-graphite, 0.15);
+    color: $color-graphite-mid;
+    font-weight: 500;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    cursor: pointer;
+
+    span {
+      transition: transform 0.3s;
+    }
+
+    &:hover {
+      border-color: $color-graphite;
+      color: $color-graphite-mid;
+
+      .item__btnIcon {
+        background: $color-brass;
+        transform: rotate(45deg);
+        color: white;
+      }
+    }
+  }
+
+  &__btnIcon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: $color-graphite;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}

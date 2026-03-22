@@ -1,0 +1,222 @@
+@import '../../../app/styles/variables';
+@import '../../../app/styles/mixins';
+
+.sidebar {
+  width: 250px;
+  flex-shrink: 0;
+
+  @include respond-to(lg) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 320px;
+    max-width: 90vw;
+    background: #fff;
+    z-index: $z-modal;
+    padding: 24px;
+    transform: translateX(-100%);
+    transition: transform $transition-fast;
+    overflow-y: auto;
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.1);
+
+    &--open {
+      transform: translateX(0);
+    }
+  }
+
+  &__header {
+    display: none;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba($color-graphite, 0.1);
+
+    @include respond-to(lg) {
+      display: flex;
+    }
+  }
+
+  &__title {
+    font-size: 20px;
+    font-weight: 600;
+    color: $color-graphite;
+  }
+
+  &__close {
+    background: none;
+    border: none;
+    color: rgba($color-graphite, 0.6);
+    cursor: pointer;
+  }
+}
+
+.sidebarOverlay {
+  display: none;
+
+  @include respond-to(lg) {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba($color-graphite, 0.4);
+    backdrop-filter: blur(4px);
+    z-index: $z-modal - 1;
+    opacity: 0;
+    visibility: hidden;
+    transition: all $transition-fast;
+
+    &--open {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}
+
+.filterGroup {
+  margin-bottom: 24px;
+  border-bottom: 1px solid rgba($color-graphite, 0.05);
+  padding-bottom: 16px;
+
+  &__header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    text-align: left;
+
+    &:hover {
+      .filterGroup__title {
+        color: $color-brass;
+      }
+    }
+  }
+
+  &__title {
+    font-size: 13px;
+    font-weight: 600;
+    color: $color-graphite;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: color $transition-fast;
+  }
+
+  &__icon {
+    color: rgba($color-graphite, 0.4);
+    transition: transform $transition-fast;
+  }
+
+  &__content {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows $transition-fast, opacity $transition-fast, margin $transition-fast;
+    opacity: 0;
+    overflow: hidden;
+    margin-top: 0;
+  }
+
+  &--expanded {
+    .filterGroup__icon {
+      transform: rotate(180deg);
+    }
+
+    .filterGroup__content {
+      grid-template-rows: 1fr;
+      opacity: 1;
+      margin-top: 20px;
+    }
+  }
+
+  &__chips {
+    min-height: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  &__list {
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__range {
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid rgba($color-graphite, 0.2);
+    border-radius: 4px;
+    font-family: $font-family;
+    font-size: 14px;
+    outline: none;
+
+    &:focus {
+      border-color: $color-brass;
+    }
+  }
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  color: rgba($color-graphite, 0.8);
+  transition: color $transition-fast;
+
+  &:hover {
+    color: $color-brass;
+  }
+
+  input[type="radio"],
+  input[type="checkbox"] {
+    accent-color: $color-brass;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    margin: 0;
+  }
+}
+
+.chip {
+  background: none;
+  border: 1px solid rgba($color-graphite, 0.1);
+  border-radius: 10px;
+  padding: 6px 14px;
+  font-family: $font-family;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba($color-graphite, 0.7);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all $transition-fast;
+
+  &:hover {
+    border-color: $color-brass;
+    color: $color-brass;
+  }
+
+  &--active {
+    background: $color-graphite;
+    border-color: $color-graphite;
+    color: #fff;
+
+    &:hover {
+      background: $color-brass;
+      border-color: $color-brass;
+      color: #fff;
+    }
+  }
+}

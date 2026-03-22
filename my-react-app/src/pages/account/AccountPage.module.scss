@@ -1,0 +1,392 @@
+@import '../../app/styles/variables.scss';
+@import '../../app/styles/mixins.scss';
+
+.page {
+  padding-top: 40px; // Spacing from header
+  padding-bottom: 120px;
+  min-height: 80vh;
+  background: #fff;
+}
+
+.container {
+  @include container;
+}
+
+.header {
+  margin-bottom: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.mainTitle {
+  font-family: $font-family;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: $color-graphite-mid;
+  line-height: 1.2;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4em;
+}
+
+.titleWord {
+  white-space: nowrap;
+}
+
+.layout {
+  display: flex;
+  gap: 60px;
+  align-items: flex-start;
+
+  @include respond-to(md) {
+    flex-direction: column;
+    gap: 40px;
+  }
+}
+
+// ================= SIDEBAR =================
+.sidebar {
+  width: 260px;
+  flex-shrink: 0;
+
+  @include respond-to(md) {
+    width: 100%;
+  }
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  background: #fcfcfc;
+  border: 1px solid rgba($color-graphite, 0.05);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 22px 24px;
+  background: transparent;
+  border: none;
+  width: 100%;
+  text-align: left;
+  font-family: $font-family;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba($color-graphite, 0.6);
+  cursor: pointer;
+  transition: all $transition-fast;
+  border-bottom: 1px solid rgba($color-graphite, 0.03);
+  position: relative;
+
+  svg {
+    opacity: 0.5;
+    transition: opacity $transition-fast;
+  }
+
+  &:hover {
+    color: $color-graphite;
+    background: rgba($color-graphite, 0.02);
+    
+    svg { opacity: 1; }
+  }
+
+  &.active {
+    color: $color-graphite;
+    background: #fff;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: $color-brass;
+    }
+    
+    svg { opacity: 1; color: $color-brass; }
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &.logout {
+    margin-top: 24px;
+    color: #cc4949;
+    
+    &:hover {
+      background: rgba(#cc4949, 0.05);
+    }
+  }
+}
+
+// ================= CONTENT AREA =================
+.content {
+  flex-grow: 1;
+  min-width: 0;
+  padding: 0 20px 40px;
+
+  @include respond-to(md) {
+    padding: 0;
+    width: 100%;
+  }
+}
+
+.sectionTitle {
+  font-family: $font-family;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: $color-brass;
+  margin-bottom: 40px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba($color-brass, 0.2);
+  text-transform: uppercase;
+  display: inline-block;
+}
+
+// ================= ORDERS TAB =================
+.filterTabs {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 32px;
+
+  @include respond-to(sm) {
+    gap: 16px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+  }
+}
+
+.filterTab {
+  background: none;
+  border: none;
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba($color-graphite, 0.4);
+  padding: 0 0 6px;
+  cursor: pointer;
+  position: relative;
+  transition: color $transition-fast;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: $color-graphite;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+  }
+
+  &:hover {
+    color: $color-graphite;
+  }
+
+  &.active {
+    color: $color-graphite;
+    
+    &::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+  }
+}
+
+.ordersList {
+  width: 100%;
+  overflow-x: auto;
+  
+  &::-webkit-scrollbar {
+    height: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba($color-graphite, 0.1);
+  }
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 15px;
+
+  th {
+    font-size: 10px;
+    font-weight: 700;
+    color: rgba($color-graphite, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    padding: 0 16px 20px;
+    border-bottom: 1px solid rgba($color-graphite, 0.05);
+  }
+
+  td {
+    padding: 24px 16px;
+    border-bottom: 1px solid rgba($color-graphite, 0.05);
+    color: $color-graphite;
+    font-weight: 300;
+  }
+
+  @include respond-to(md) {
+    thead {
+      display: none;
+    }
+
+    tr {
+      display: block;
+      background: #fff;
+      border: 1px solid rgba($color-graphite, 0.08);
+      border-radius: 8px;
+      margin-bottom: 24px;
+      padding: 12px 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    }
+
+    td {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba($color-graphite, 0.04);
+      text-align: right;
+      font-size: 14px;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      &::before {
+        content: attr(data-label);
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 10px;
+        letter-spacing: 0.12em;
+        color: rgba($color-graphite, 0.4);
+        margin-right: 16px;
+        text-align: left;
+      }
+    }
+
+    .orderId {
+      padding-top: 18px;
+    }
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+}
+
+.orderId {
+  font-weight: 600;
+  color: $color-graphite-mid;
+}
+
+.orderTotal {
+  font-weight: 500;
+  color: $color-graphite;
+}
+
+.statusBadge {
+  display: inline-flex;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+
+  &.status-active {
+    background: #fdfaf0;
+    color: #bfa36a;
+  }
+
+  &.status-completed {
+    background: #f4faf4;
+    color: #4caf50;
+  }
+
+  &.status-cancelled {
+    background: #fff5f5;
+    color: #e53935;
+  }
+}
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 100px 0;
+  color: rgba($color-graphite, 0.2);
+  gap: 20px;
+}
+
+// ================= FORMS =================
+.form {
+  max-width: 600px;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  margin-bottom: 48px;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  label {
+    font-size: 10px;
+    color: rgba($color-graphite, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 700;
+  }
+}
+
+.input {
+  border: 1px solid rgba($color-graphite, 0.1);
+  background: #fcfcfc;
+  padding: 18px 20px;
+  color: $color-graphite;
+  font-family: $font-family;
+  font-size: 15px;
+  transition: all $transition-fast;
+  width: 100%;
+
+  &:focus {
+    outline: none;
+    background: #fff;
+    border-color: $color-brass;
+    box-shadow: 0 10px 30px rgba($color-brass, 0.05);
+  }
+}
+
+.submitBtn {
+  @include btn-brass;
+  padding: 18px 48px;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+}

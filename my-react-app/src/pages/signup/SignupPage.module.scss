@@ -1,0 +1,257 @@
+@import '../../app/styles/variables.scss';
+@import '../../app/styles/mixins.scss';
+
+.page {
+  padding-top: 40px;
+  padding-bottom: 120px;
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+}
+
+.container {
+  @include container;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+
+.title {
+  font-family: $font-family;
+  font-size: clamp(2rem, 6vw, 4.5rem);
+  font-weight: 300;
+  color: $color-graphite-mid;
+  margin-bottom: 32px;
+  line-height: 1.1;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4em;
+}
+
+.titleWord {
+  white-space: nowrap;
+}
+
+.description {
+  font-family: $font-family;
+  font-size: 15px;
+  line-height: 1.6;
+  color: rgba($color-graphite, 0.5);
+  margin-bottom: 60px;
+  max-width: 700px;
+}
+
+.form {
+  width: 100%;
+  max-width: 800px;
+  padding: 60px;
+  background: #fcfcfc;
+  border: 1px solid rgba($color-brass, 0.1);
+  border-radius: 2px;
+  text-align: left;
+
+  @include respond-to(md) {
+    padding: 30px 20px;
+  }
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px 40px;
+
+  @include respond-to(md) {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  @include respond-to(md) {
+    &:first-child { grid-column: auto; }
+  }
+
+  // Full width for first field (NAME)
+  &:first-child {
+    grid-column: span 2;
+    @include respond-to(md) { grid-column: auto; }
+  }
+}
+
+.label {
+  font-size: 11px;
+  color: rgba($color-graphite, 0.5);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  
+  span {
+    color: #cc4949;
+  }
+}
+
+.input {
+  border: 1px solid rgba($color-graphite, 0.1);
+  background: #fff;
+  padding: 16px;
+  color: $color-graphite;
+  font-family: $font-family;
+  font-size: 15px;
+  transition: all $transition-fast;
+  width: 100%;
+
+  &:focus {
+    outline: none;
+    border-color: $color-brass;
+    box-shadow: 0 4px 20px rgba($color-brass, 0.05);
+  }
+
+  &::placeholder {
+    color: rgba($color-graphite, 0.2);
+  }
+}
+
+.infoText {
+  font-size: 12px;
+  color: rgba($color-graphite, 0.4);
+  margin-top: 4px;
+}
+
+.captchaSection {
+  grid-column: span 2;
+  @include respond-to(md) { grid-column: auto; }
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 360px;
+}
+
+.captchaRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  .input {
+    width: 120px;
+  }
+}
+
+.captchaImage {
+  height: 50px;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f0f0f0;
+  border: 1px dashed rgba($color-graphite, 0.2);
+  border-radius: 4px;
+  user-select: none;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: 4px;
+  color: $color-graphite-mid;
+}
+
+.captchaReload {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: $color-brass;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  &:hover {
+    transform: rotate(180deg);
+  }
+}
+
+.agreement {
+  margin-top: 40px;
+  padding-top: 32px;
+  border-top: 1px solid rgba($color-graphite, 0.05);
+}
+
+.rememberLabel {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 14px;
+  color: rgba($color-graphite, 0.6);
+  cursor: pointer;
+  line-height: 1.4;
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.toggleSwitch {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  background: rgba($color-graphite, 0.1);
+  border-radius: 30px;
+  transition: background $transition-fast;
+  flex-shrink: 0;
+
+  &.active {
+    background: $color-brass;
+    .slider {
+      transform: translateX(18px);
+    }
+  }
+}
+
+.slider {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  background: white;
+  border-radius: 50%;
+  transition: transform $transition-fast;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 48px;
+}
+
+.submitBtn {
+  @include btn-brass;
+  padding: 20px 80px;
+  font-size: 13px;
+  letter-spacing: 0.15em;
+
+  @include respond-to(md) {
+    width: 100%;
+    padding: 18px 40px;
+  }
+}
