@@ -1,15 +1,8 @@
-import { useState } from 'react';
-import { MapPin, Mail, Phone, Send, ChevronDown } from 'lucide-react';
+import { MapPin, Mail, Phone, Send } from 'lucide-react';
 import { collections } from '../../shared/data/collections';
 import s from './Footer.module.scss';
 
 export function Footer() {
-  const [openSection, setOpenSection] = useState<string | null>(null);
-
-  const toggleSection = (section: string) => {
-    setOpenSection(openSection === section ? null : section);
-  };
-
   return (
     <footer className={s.footer}>
       <div className={s.main}>
@@ -21,28 +14,16 @@ export function Footer() {
             <a href="/sale/" className={s.main_link}>АКЦИИ</a>
             <a href="/contacts/" className={s.main_link}>КОНТАКТЫ</a>
           </div>
-          <div className={`${s.copyright} ${s['desktop-only']}`}>
+          <div className={s.copyright}>
             {new Date().getFullYear()} © Vissam
           </div>
         </div>
 
         <div className={s.accordionRow}>
-          {/* Column 2: Collections Accordion */}
+          {/* Column 2: Collections */}
           <div className={s.col}>
-            <div
-              className={s.col__header_with_link}
-              aria-expanded={openSection === 'collections'}
-            >
-              <a href="/collection" className={s.col__title}>КОЛЛЕКЦИИ</a>
-              <button
-                className={s.col__mobile_toggle}
-                onClick={() => toggleSection('collections')}
-                aria-expanded={openSection === 'collections'}
-              >
-                <ChevronDown size={14} className={s.col__chevron} />
-              </button>
-            </div>
-            <div className={`${s.col__links} ${openSection === 'collections' ? s['col__links--open'] : ''}`}>
+            <a href="/collection" className={s.col__title}>КОЛЛЕКЦИИ</a>
+            <div className={s.col__links}>
               {collections.slice(0, 5).map((col) => (
                 <a key={col.id} href={`/catalog/?collection=${encodeURIComponent(col.name)}`} className={s.col__link}>
                   Коллекция {col.name}
@@ -51,34 +32,30 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Column 3: Information Accordion */}
+          {/* Column 3: Information */}
           <div className={s.col}>
-            <button
-              className={s.col__title}
-              onClick={() => toggleSection('info')}
-              aria-expanded={openSection === 'info'}
-            >
-              ИНФОРМАЦИЯ
-              <ChevronDown size={14} className={s.col__chevron} />
-            </button>
-            <div className={`${s.col__links} ${openSection === 'info' ? s['col__links--open'] : ''}`}>
+            <div className={s['desktop-only']}>
+              <div className={s.col__title}>ИНФОРМАЦИЯ</div>
+            </div>
+            <div className={s['mobile-only']}>
+              <a href="/privacy" className={s.col__title}>ИНФОРМАЦИЯ</a>
+            </div>
+            <div className={s.col__links}>
               <a href="/payment" className={s.col__link}>Условия оплаты</a>
               <a href="/delivery" className={s.col__link}>Условия доставки</a>
               <a href="/privacy" className={s.col__link}>Политика конфиденциальности</a>
             </div>
           </div>
 
-          {/* Column 4: Company Accordion */}
+          {/* Column 4: Company */}
           <div className={s.col}>
-            <button
-              className={s.col__title}
-              onClick={() => toggleSection('company')}
-              aria-expanded={openSection === 'company'}
-            >
-              КОМПАНИЯ
-              <ChevronDown size={14} className={s.col__chevron} />
-            </button>
-            <div className={`${s.col__links} ${openSection === 'company' ? s['col__links--open'] : ''}`}>
+            <div className={s['desktop-only']}>
+              <div className={s.col__title}>КОМПАНИЯ</div>
+            </div>
+            <div className={s['mobile-only']}>
+              <a href="/company" className={s.col__title}>КОМПАНИЯ</a>
+            </div>
+            <div className={s.col__links}>
               <a href="/company/" className={s.col__link}>О компании</a>
             </div>
           </div>
@@ -114,7 +91,7 @@ export function Footer() {
 
       <div className={s.footer_bottom}>
         <div className={s.footer_bottom__inner}>
-          <div className={`${s.copyright} ${s['mobile-only']}`}>
+          <div className={s.copyright}>
             {new Date().getFullYear()} © Vissam
           </div>
         </div>
