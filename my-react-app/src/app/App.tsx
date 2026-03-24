@@ -19,6 +19,7 @@ import { ContactsPage } from '../pages/contacts/ContactsPage';
 import { ForgotPassPage } from '../pages/forgotpass/ForgotPassPage';
 import { SignupPage } from '../pages/signup/SignupPage';
 import { AccountPage } from '../pages/account/AccountPage';
+import { NotFoundPage } from '../pages/notfound/NotFoundPage';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -53,6 +54,7 @@ export function App() {
         <Route path="/forgotpass" element={<ForgotPassPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/personal" element={<AccountPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </>
   );

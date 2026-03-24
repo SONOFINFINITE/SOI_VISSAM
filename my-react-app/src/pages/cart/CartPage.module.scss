@@ -26,6 +26,29 @@
   justify-content: flex-start;
 }
 
+.cart__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: $color-graphite;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all $transition-fast;
+
+  &:hover {
+    color: $color-brass;
+    
+    svg {
+      transform: translateX(-2px);
+    }
+  }
+
+  svg {
+    transition: transform $transition-fast;
+  }
+}
+
 .heroHeader {
   min-height: 25vh;
   display: flex;

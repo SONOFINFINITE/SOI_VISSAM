@@ -48,6 +48,18 @@ export const useFilterStore = create<FilterStore>()(
       })),
       resetFilters: () => set(initialState),
     }),
-    { name: 'vissam-filters' }
+    { 
+      name: 'vissam-filters',
+      storage: {
+        getItem: (name) => {
+          const str = sessionStorage.getItem(name);
+          return str ? JSON.parse(str) : null;
+        },
+        setItem: (name, value) => {
+          sessionStorage.setItem(name, JSON.stringify(value));
+        },
+        removeItem: (name) => sessionStorage.removeItem(name),
+      },
+    }
   )
 );
