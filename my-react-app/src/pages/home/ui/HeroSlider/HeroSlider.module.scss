@@ -11,8 +11,8 @@
 
   @include respond-to(lg) {
     display: block; // Full screen container
-    height: 100dvh;
-    min-height: 100dvh;
+    height: 100vh;
+    min-height: 100vh;
     background: #fff;
   }
 }
