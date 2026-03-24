@@ -88,6 +88,7 @@ export function Header({ isTransparentMobile = false }: HeaderProps = {}) {
 
   return (
     <div ref={containerRef}>
+      {isSticky && <div style={{ height: '70px' }} />}
       <header className={`${s.header} ${isSticky ? s['header--sticky'] : ''} ${isTransparent ? s['is-transparent'] : ''}`}>
         <div className={s.header__top}>
           <div className={s.header__inner}>
