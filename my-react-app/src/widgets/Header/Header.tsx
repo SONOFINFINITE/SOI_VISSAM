@@ -22,11 +22,9 @@ interface HeaderProps {
 
 export function Header({ isTransparentMobile = false }: HeaderProps = {}) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const headerRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
   const navigate = useNavigate();
   const [isSticky, setIsSticky] = useState(false);
-  const [headerHeight, setHeaderHeight] = useState(0);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
@@ -67,39 +65,12 @@ export function Header({ isTransparentMobile = false }: HeaderProps = {}) {
   }, { scope: containerRef });
 
   useEffect(() => {
-    let ticking = false;
-    
     const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          // Check scroll position from window or root element
-          const isMobile = window.innerWidth < 1024;
-          const scrollY = isMobile 
-            ? document.getElementById('root')?.scrollTop || 0
-            : window.scrollY;
-          
-          const shouldBeSticky = scrollY > 50;
-          if (shouldBeSticky !== isSticky) {
-            setIsSticky(shouldBeSticky);
-          }
-          ticking = false;
-        });
-        ticking = true;
-      }
+      setIsSticky(window.scrollY > 50);
     };
-    
-    // Set initial height based on viewport
-    const isMobile = window.innerWidth < 1024;
-    setHeaderHeight(isMobile ? 70 : 90);
-    
-    // Listen to scroll on appropriate element
-    const scrollElement = isMobile ? document.getElementById('root') : window;
-    scrollElement?.addEventListener('scroll', handleScroll, { passive: true } as any);
-    
-    return () => {
-      scrollElement?.removeEventListener('scroll', handleScroll);
-    };
-  }, [isSticky]);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     if (mobileOpen) {
@@ -117,10 +88,7 @@ export function Header({ isTransparentMobile = false }: HeaderProps = {}) {
 
   return (
     <div ref={containerRef}>
-      {/* Placeholder to prevent layout shift when header becomes fixed */}
-      {isSticky && <div style={{ height: `${headerHeight || 70}px` }} />}
-      
-      <header ref={headerRef} className={`${s.header} ${isSticky ? s['header--sticky'] : ''} ${isTransparent ? s['is-transparent'] : ''}`}>
+      <header className={`${s.header} ${isSticky ? s['header--sticky'] : ''} ${isTransparent ? s['is-transparent'] : ''}`}>
         <div className={s.header__top}>
           <div className={s.header__inner}>
 
